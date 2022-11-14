@@ -1,0 +1,25 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.grid-container {
+  display: grid;
+  grid-template: 
+  "header header aside"
+  "sidebar . aside"
+  "footer footer footer"
+}
+.item1 {
+  grid-area: header;
+}
+.item2 {
+  grid-area: aside;
+}
+.item3 {
+  grid-area: sidebar;
+}
+.item4 {
+  grid-area: footer;
+}

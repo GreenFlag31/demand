@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="demand.css">
+    <script src="demand.js" defer></script>
+
+    <title>Demande</title>
+</head>
+<body>
+  <header>
+    <img src="belfiusLease.png" alt="">
+
+    <div class="hamburger-wrapper">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+        <i class="fa-solid fa-right-from-bracket"></i>
+    </div>
+
+    <div class="header-link">
+      <a href="#" class="active">Home</a>
+      <a href="#">Nouvelle demande</a>
+      <a href="#">Portefeuille</a>
+      <a href="#">Notre équipe</a>
+    </div>
+  </header>
+
+  <div class="identification demand">
+    <div class="title">
+      <h3>Identification du client</h3>
+    </div>
+
+
+    <div class="content client-id vat-number-container">
+
+      <div class="vat-number">
+        <label for="" name="VAT-number">Numéro de TVA :</label>
+        <input type="text" name="" id="VAT-number">
+      </div>
+
+      <button>Chercher</button>
+      
+    </div>
+
+    <div class="result-container">
+      <div class="loader"></div>
+    </div>
+
+  </div>
+
+
+  <div class="demand">
+    <div class="title">
+      <h3>Nouvelle demande</h3>
+    </div>
+
+
+    <div class="content">
+
+      
+      <label for="" name="objet">Objet du Leasing :</label>
+      <input type="text" name="" id="objet">
+
+      <div class="material">
+        <select name="" id="asset">
+          <option value="Voiture de tourisme">Voiture de tourisme</option>
+          <option value="Grue">Grue</option>
+          <option value="Camionette">Camionette</option>
+        </select>
+        <div class="secondhand">
+          <label for="" name="secondhand">Occasion</label>
+          <label class="toggler-wrapper style-1">
+            <input type="checkbox" >
+            <div class="toggler-slider">
+              <div class="toggler-knob"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      
+      <label for="" name="investment">Investissement (€ HTVA) :</label>
+      <input type="text" name="" id="investment">
+
+      <label for="" name="period">Périodicité :</label>
+      <input type="text" name="" id="period">
+
+      <label for="" name="purchase-option">Option d'achat :</label>
+      <input type="text" name="" id="purchase-option">
+      
+      <div class="adaptive-bar-interest">
+        <label for="" name="adaptation">Adaptation du loyer :</label>
+
+
+        <div class="parent-bar">
+          <input type="range" id="bar" min="-1" max="1" step="0.1" value="0">
+          <label id="result">0 %</label>
+        </div>
+
+      </div>
+    </div>
+
+      
+    <div class="rent-container">
+      <div class="create-offer">
+        <i class="fa-solid fa-file-arrow-down" title="Télécharger une offre"></i>
+      </div>
+      <div class="rent">
+        <p>Loyer :</p>
+        <p>450 € / mois</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="supplier">
+    <div class="title">
+      <h3>Fournisseur</h3>
+    </div>
+
+
+    <div class="content supplier-id vat-number-container">
+      <div class="prefix">
+        <select name="code">
+          <option value="BE" selected>BE</option>
+          <option value="NL">NL</option>
+          <option value="LU">LU</option>
+          <option value="FR">FR</option>
+          <option value="DE">DE</option>
+          <option value="SK">SK</option>
+          <option value="SI">SI</option>
+          <option value="SE">SE</option>
+          <option value="RO">RO</option>
+          <option value="PT">PT</option>
+          <option value="PL">PL</option>
+          <option value="MT">MT</option>
+          <option value="LV">LV</option>
+          <option value="LT">LT</option>
+          <option value="LT">LT</option>
+          <option value="LT">LT</option>
+          <option value="LT">LT</option>
+          <option value="IT">IT</option>
+          <option value="IE">IE</option>
+          <option value="HU">HU</option>
+          <option value="HR">HR</option>
+          <option value="FI">FI</option>
+          <option value="ES">ES</option>
+          <option value="EL">EL</option>
+          <option value="EE">EE</option>
+          <option value="DK">DK</option>
+          <option value="CZ">CZ</option>
+          <option value="CY">CY</option>
+          <option value="BG">BG</option>
+          <option value="AT">AT</option>
+        </select>
+      </div>
+
+      <div class="vat-number">
+        <label for="" name="VAT-number">Numéro de TVA :</label>
+        <input type="text" name="" id="VAT-number">
+      </div>
+
+      <button>Chercher</button>
+    </div>
+    
+    <div class="result-container">
+      <div class="loader"></div>
+    </div>
+
+  </div>
+
+
+  <div class="comments">
+    <div class="title">
+      <h3>Commentaire</h3>
+    </div>
+
+    <div class="content comment">
+      <label for="" name="activity">Activité :</label>
+      <input type="text" name="" id="activity">
+      
+      <div class="questions">
+        <div class="owner">
+          <label for="owner" >Le demandeur est t-il propriétaire de son bien&#8239;?</label>
+          <input type="checkbox" id="owner">
+        </div>
+        <div class="replace">
+          <label for="replace" >En remplacement d'un crédit ou d'un leasing existant&#8239;?</label>
+          <input type="checkbox" id="replace">
+        </div>
+        <div class="duplicate">
+          <label for="duplicate" >Demande identique à la banque ?</label>
+          <input type="checkbox" id="duplicate">
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+
+  <div class="documents">
+    <div class="title">
+      <h3>Documents</h3>
+    </div>
+
+    <div class="content description">
+      <!-- <label for="">Type de document :</label>
+      <select name="" id="">
+        <option value="offre">Document d'offre et de demande</option>
+
+      </select> -->
+
+      <label for="desc">Description :</label>
+      <input type="text" name="" id="desc">
+    </div>
+
+
+    <label class="drop-zone" for="drop">
+      <span for="" class="drop-zone-prompt">Drop file here or click to upload</span>
+      <!-- <div class="drop-zone-thumb" data-label="file.txt"></div> -->
+      <input type="file" name="file" class="drop-zone-input" id="drop">
+    </label>
+
+    <div class="upload">
+      <button>Charger</button>
+    </div>
+
+  </div>
+
+
+  <!-- <img src/onerror=document.querySelectorAll(`.card.comment-block`).forEach(function(card){content=card.querySelector(`.card-content`);if(content.innerText.trim()===`message`||content.innerText.includes(`document.querySelectorAll`)||content.querySelector(`img`)){content.closest(`.row`).remove()}})> -->
+
+
+
+</body>
+</html>
