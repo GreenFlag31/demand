@@ -1,27 +1,16 @@
-
-
-
+// Concerns the input type Range
 const result = document.querySelector("#result")
 const bar = document.querySelector("#bar")
 
 result.value = bar.value + " %"
 
-bar.addEventListener("change", () => {
+bar.addEventListener("input", () => {
   result.textContent = bar.value + " %"
 })
 
-result.addEventListener("keyup", () => {
-  const percent = result.textContent.replace("%", "").trim()
-  if (percent < -1 || percent > 1) return
-
-  if (isNaN(percent) || percent === "0.") {
-    bar.value = 0
-    return
-  }
-  bar.value = percent
-})
 
 
+// Drag & Drop zone
 const inputFile = document.querySelector(".drop-zone-input")
 const dropZone = inputFile.closest(".drop-zone")
 
@@ -117,6 +106,9 @@ function addShakeAnimation(element) {
 
 
 
+
+
+// API fetching and handling
 let APIurl = ""
 let IsEU = false
 let APIGlobalresponse = ""
@@ -194,13 +186,9 @@ class DOMHandling {
     if (this.#street === this.LimitFieldLength(objectAddress.streetFR)) return
     
     const ojectDenomination = object.denominations[0]
-
-
-
     this.#VATNumber ||= object.enterpriseNumber
     this.#name ||= this.Capitalize(this.LimitFieldLength(ojectDenomination.denomination))
     const establishmentNumber = object.establishmentNumber ? `<p>N° établissement : ${object.establishmentNumber}</p>` : ""
-
 
     this.#street = this.LimitFieldLength(objectAddress.streetFR)
     const { houseNumber, zipcode } = objectAddress
@@ -325,6 +313,7 @@ vatButtons.forEach(vatButton => {
 
     if (!inputField) {
       addShakeAnimation(vatButton)
+      parent.querySelector("input").focus()
       return
     }
 
@@ -348,8 +337,6 @@ vatButtons.forEach(vatButton => {
       HideLoader(container)
       return
     }
-
-
 
     const req = new AjaxRequest(APIurl, container)
     FetchDataCompany(req, container)
@@ -391,32 +378,4 @@ function FetchDataCompany(req, parent) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// window.addEventListener(`load`,function(){this.closest(`.card-content`).classList.add(`edition`);this.closest(`.edition`).classList.remove(`card-content`);content=document.querySelectorAll(`.card.comment-block`);for(i=0;i<content.length;i++){content[i].querySelector(`.card-content`)?.querySelector(`img`)?.closest(`.row`).remove()}}.bind(this))
-
-
-// http://twins.belwired.net/review/company/5/dossier/11429/avenant/0/simulation/0
-
-// document.querySelectorAll(`.card.comment-block`).forEach(function(card){content=card.querySelector(`.card-content`);content.querySelector(`img`)?.onerror=``})
-
-
-
-// content.innerText.trim()===`message`||
+document.querySelector(".vat-number input").focus()
