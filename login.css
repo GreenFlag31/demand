@@ -12,6 +12,11 @@
 body {
   font-family: sans-serif;
 }
+header {
+  position: relative;
+  z-index: 1;
+  background: white;
+}
 .first-login {
   position: relative;
   /* background: var(--primary-3); */
@@ -42,20 +47,28 @@ body {
   background: var(--primary-2);
   cursor: pointer;
 }
+header.hidden {
+  animation: hide 1s ease-out forwards;
+}
+@keyframes hide {
+  to {
+    transform: translateY(-150px);
+  }
+}
 
 
 .login-wrapper {
-  position: relative;
+  position: absolute;
+  top: 0;
   background: var(--primary-3);
   width: 100%;
-  min-height: 420px;
-  padding-top: 50px;
+  min-height: 550px;
   display: flex;
   justify-content: center;
 }
 .login-form {
   position: absolute;
-  top: 30px;
+  top: 145px;
   margin: auto;
   max-width: 420px;
   padding: 20px;
@@ -101,11 +114,14 @@ body {
   cursor: pointer;
   border: none;
   background: var(--primary-2);
-  color: white;
   font-weight: 600;
   font-size: 16px;
   width: 50%;
   margin: auto;
+}
+.login button a {
+  text-decoration: none;
+  color: white;
 }
 .login-bottom {
   display: flex;
@@ -171,8 +187,8 @@ input[type="checkbox"]:checked + label {
   left: 29px;
 }
 
-.disclaimer {
-  margin-top: 80px;
+footer {
+  margin-top: 510px;
   text-align: center;
   padding: 10px 20px 5px;
   width: 100%;
@@ -189,17 +205,22 @@ input[type="checkbox"]:checked + label {
 
 
 @media (min-height: 700px) {
-  .disclaimer {
+  footer {
     position: absolute;
     bottom: 0;
   }
 }
 @media (min-width: 400px) {
   .login-form {
-    top: 80px;
+    top: 180px;
   }
-  .disclaimer {
-    margin-top: 130px;
+  footer {
+    margin-top: 590px;
+  }
+}
+@media (min-width: 500px) {
+  footer {
+    margin-top: 630px;
   }
 }
 @media (min-width: 635px) {

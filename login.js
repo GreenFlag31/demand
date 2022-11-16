@@ -14,9 +14,9 @@ eyes.addEventListener("click", (e) => {
 })
 
 
-const loginBtn = document.querySelector(".login button")
-const loginForm = document.querySelector(".login-form form")
-
-loginForm.addEventListener("submit", e => {
-  
+const closeBtn = document.querySelector(".close")
+const header = document.querySelector("header")
+closeBtn.addEventListener("click", () => {
+  header.classList.add("hidden")
 })
+
