@@ -171,7 +171,6 @@ input[type="checkbox"]:checked + label {
   left: 29px;
 }
 
-
 .disclaimer {
   margin-top: 80px;
   text-align: center;
@@ -189,6 +188,12 @@ input[type="checkbox"]:checked + label {
 }
 
 
+@media (min-height: 700px) {
+  .disclaimer {
+    position: absolute;
+    bottom: 0;
+  }
+}
 @media (min-width: 400px) {
   .login-form {
     top: 80px;

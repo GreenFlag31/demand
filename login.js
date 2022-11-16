@@ -6,10 +6,17 @@ eyes.addEventListener("click", (e) => {
   const previousEl = currentEl.previousElementSibling
   if (previousEl.type === "password") {
     previousEl.type = "text"
-    // currentEl.classList.remove("-slash")
     currentEl.classList.replace("fa-eye-slash", "fa-eye")
   } else {
     previousEl.type = "password"
     currentEl.classList.replace("fa-eye", "fa-eye-slash")
   }
+})
+
+
+const loginBtn = document.querySelector(".login button")
+const loginForm = document.querySelector(".login-form form")
+
+loginForm.addEventListener("submit", e => {
+  
 })
