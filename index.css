@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-1: #333; 
+  --primary-2: #C30045; 
+  --primary-3: #e8e8e8;
+  --primary-4: #a3a3a3;
+}
+body {
+  font-family: sans-serif;
+}
+header {
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+.first-login {
+  position: relative;
+  padding: 10px;
+  min-width: 320px;
+  border-bottom: 1px solid var(--primary-2);
+  box-shadow: 0px 7px 5px -4px rgb(0 0 0 / 25%);
+  font-size: 14px;
+}
+.first-login a {
+  color: var(--primary-2);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+}
+.first-login #FR {
+  margin-bottom: 3px;
+}
+.first-login .close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border-radius: 20px;
+  padding: 4px 8px;
+  color: white;
+  background: var(--primary-2);
+  cursor: pointer;
+}
+header.hidden {
+  animation: hide 1s ease-out forwards;
+}
+@keyframes hide {
+  to {
+    transform: translateY(-150px);
+  }
+}
+.login-wrapper {
+  position: absolute;
+  top: 0;
+  background: var(--primary-3);
+  width: 100%;
+  min-height: 550px;
+  display: flex;
+  justify-content: center;
+}
+.login-form {
+  position: absolute;
+  top: 145px;
+  margin: auto;
+  max-width: 420px;
+  padding: 20px;
+  background: var(--primary-3);
+  box-shadow: 0px 1px 6px 0px rgb(0 0 0 / 25%);
+}
+.login-form img {
+  width: 280px;
+  height: 150px;
+}
+.login-form input {
+  width: 100%;
+  border: none;
+  padding: 10px 0;
+  background: var(--primary-3);
+  border-bottom: 1px solid var(--primary-4);
+  outline: none;
+}
+.password {
+  position: relative;
+}
+.password .fa-solid.fa-eye-slash,
+.fa-solid.fa-eye {
+  position: absolute;
+  top: 14px;
+  right: 2px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.user, .password {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.login {
+  margin: 40px 0;
+}
+.login button {
+  display: block;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  background: var(--primary-2);
+  font-weight: 600;
+  font-size: 16px;
+  width: 50%;
+  margin: auto;
+}
+.login button a {
+  text-decoration: none;
+  color: white;
+}
+.login-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.sign-in a {
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+.slideThree {
+  width: 60px;
+  height: 26px;
+  border: 1px solid var(--primary-2);
+  position: relative;
+  border-radius: 50px;
+  box-shadow: inset 0px 0px 1px rgb(0 0 0 / 50%),
+  0px 1px 0px rgb(255 255 255 / 20%);
+  font-size: 15px;
+}
+.slideThree::after {
+  content: "FR";
+  color: var(--primary-2);
+  position: absolute;
+  right: 10px;
+  z-index: 0;
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+}
+.slideThree::before {
+  content: "NL";
+  color: var(--primary-2);
+  position: absolute;
+  left: 10px;
+  z-index: 0;
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+}
+label {
+  display: block;
+  width: 27px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  z-index: 1;
+  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: var(--primary-2);
+  border-radius: 50px;
+  transition: all 0.4s ease;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+}
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
+input[type="checkbox"]:checked + label {
+  left: 29px;
+}
+
+footer {
+  margin-top: 510px;
+  text-align: center;
+  padding: 10px 20px 5px;
+  width: 100%;
+  font-size: 14px;
+}
+#disclaimer-text {
+  font-weight: 600;
+}
+#version {
+  font-size: 10px;
+  color: lightgrey;
+  margin-top: 10px;
+}
+
+
+@media (min-height: 700px) {
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
+}
+@media (min-width: 400px) {
+  .login-form {
+    top: 180px;
+  }
+  footer {
+    margin-top: 590px;
+  }
+}
+@media (min-width: 500px) {
+  footer {
+    margin-top: 630px;
+  }
+}
+@media (min-width: 635px) {
+  .first-login {
+    padding-top: 12px;
+  }
+}
