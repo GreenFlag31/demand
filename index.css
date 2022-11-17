@@ -222,3 +222,8 @@ footer {
     padding-top: 12px;
   }
 }
+@media (min-height: 800px) {
+  .login-form {
+    top: 230px;
+  }
+}
