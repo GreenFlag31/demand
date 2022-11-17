@@ -19,7 +19,6 @@ header {
 }
 .first-login {
   position: relative;
-  /* background: var(--primary-3); */
   padding: 10px;
   min-width: 320px;
   border-bottom: 1px solid var(--primary-2);
@@ -35,7 +34,6 @@ header {
 }
 .first-login #FR {
   margin-bottom: 3px;
-
 }
 .first-login .close {
   position: absolute;
@@ -55,8 +53,6 @@ header.hidden {
     transform: translateY(-150px);
   }
 }
-
-
 .login-wrapper {
   position: absolute;
   top: 0;
@@ -133,8 +129,6 @@ header.hidden {
   font-weight: bold;
   text-decoration: none;
 }
-
-
 .slideThree {
   width: 60px;
   height: 26px;

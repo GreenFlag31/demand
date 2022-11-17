@@ -309,6 +309,7 @@ vatButtons.forEach(vatButton => {
   vatButton.addEventListener("click", async () => {
     const parent  = vatButton.closest(".vat-number-container")
     let inputField = parent.querySelector("input").value
+    // Sanitize spaces and . character
     inputField = inputField.replace(/\s|\./g, "")
 
     if (!inputField) {

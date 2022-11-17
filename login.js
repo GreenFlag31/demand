@@ -1,6 +1,4 @@
 const eyes = document.querySelector(".password .fa-solid.fa-eye-slash")
-
-
 eyes.addEventListener("click", (e) => {
   const currentEl = e.currentTarget
   const previousEl = currentEl.previousElementSibling
