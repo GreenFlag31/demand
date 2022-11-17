@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 :root {
-  --primary-1: #333; 
-  --primary-2: #c30045; 
+  --primary-1: #333;
+  --primary-2: #c30045;
   --primary-3: #e8e8e8;
   --primary-4: #c7c7c7;
   --primary-5: #e3e3e3;
@@ -24,7 +24,7 @@ input {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--primary-5);
-} 
+}
 header {
   position: fixed;
   top: 0;
@@ -67,16 +67,20 @@ header i {
   font-weight: bold;
   margin-right: 10px;
 }
-.demand h3, .supplier h3,
-.comments h3, .documents h3 {
+.demand h3,
+.supplier h3,
+.comments h3,
+.documents h3 {
   background: var(--primary-2);
   color: #fff;
   padding: 10px;
   text-align: center;
   font-weight: 600;
 }
-.demand, .supplier,
-.comments, .documents {
+.demand,
+.supplier,
+.comments,
+.documents {
   padding: 10px;
   padding-top: 0;
   margin-bottom: 100px;
@@ -106,7 +110,8 @@ header i {
 .result-container .result:last-child {
   margin-bottom: 0;
 }
-.result p, .result span {
+.result p,
+.result span {
   padding: 5px 0;
   font-size: 0.9em;
 }
@@ -119,7 +124,7 @@ header i {
   border: 1px solid var(--primary-2);
   box-shadow: 0px 2px 6px 0px rgba(250, 172, 172, 0.7);
 }
-.message-info, 
+.message-info,
 .message-danger {
   display: flex;
   align-items: center;
@@ -130,7 +135,7 @@ header i {
   max-height: 38px;
   color: #004494;
   font-weight: 600;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .result-container .fa-triangle-exclamation {
   color: rgba(240, 5, 5, 0.878);
@@ -144,7 +149,6 @@ header i {
   background: rgba(248, 214, 214, 0.866);
   color: red;
 }
-
 
 .loader {
   display: none;
@@ -163,15 +167,11 @@ header i {
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);  
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
   }
-} 
-
-.content {
-  /* padding: 10px; */
 }
 .content.vat-number-container {
   display: flex;
@@ -179,7 +179,7 @@ header i {
   align-items: flex-end;
   gap: 10px;
 }
-.prefix select[name='code'] {
+.prefix select[name="code"] {
   margin: 0;
   height: 2em;
   outline: none;
@@ -187,8 +187,6 @@ header i {
 .vat-number {
   width: 65%;
 }
-
-
 .content.vat-number-container button {
   background: transparent;
   padding: 10px;
@@ -242,55 +240,52 @@ label[name="investment"] {
   margin: 0;
 }
 
-
-
 /* secondhand */
 .toggler-wrapper {
-	display: block;
-	width: 45px;
-	height: 25px;
-	cursor: pointer;
-	position: relative;
+  display: block;
+  width: 45px;
+  height: 25px;
+  cursor: pointer;
+  position: relative;
 }
 
 .toggler-wrapper input[type="checkbox"] {
-	display: none;
+  display: none;
 }
 
-.toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
-	background-color: var(--primary-2);
+.toggler-wrapper input[type="checkbox"]:checked + .toggler-slider {
+  background-color: var(--primary-2);
 }
 
 .toggler-wrapper .toggler-slider {
-	background-color: #ccc;
-	position: absolute;
-	border-radius: 100px;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-transition: all 300ms ease;
-	transition: all 300ms ease;
+  background-color: #ccc;
+  position: absolute;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 
 .toggler-wrapper .toggler-knob {
-	position: absolute;
-	-webkit-transition: all 300ms ease;
-	transition: all 300ms ease;
+  position: absolute;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 
-
-.toggler-wrapper.style-1 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
-	left: calc(100% - 19px - 3px);
+.toggler-wrapper.style-1 input[type="checkbox"]:checked + .toggler-slider .toggler-knob {
+  left: calc(100% - 19px - 3px);
 }
 
 .toggler-wrapper.style-1 .toggler-knob {
-	width: calc(25px - 6px);
-	height: calc(25px - 6px);
-	border-radius: 50%;
-	left: 3px;
-	top: 3px;
-	background-color: #fff;
+  width: calc(25px - 6px);
+  height: calc(25px - 6px);
+  border-radius: 50%;
+  left: 3px;
+  top: 3px;
+  background-color: #fff;
 }
 .adaptive-bar-interest label {
   padding: 15px 0 0 0;
@@ -325,7 +320,7 @@ label[name="investment"] {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: rgba(195, 0, 69, .7);
+  background-color: rgba(195, 0, 69, 0.7);
 }
 .rent-container {
   position: relative;
@@ -375,7 +370,7 @@ label[name="investment"] {
   padding-bottom: 10px;
   font-weight: 600;
 }
-.btn-send button, 
+.btn-send button,
 .documents .upload button {
   display: block;
   color: var(--primary-2);
@@ -409,7 +404,9 @@ label[name="investment"] {
   animation: accent 0.5s;
   accent-color: var(--primary-2);
 }
-.owner, .replace, .duplicate {
+.owner,
+.replace,
+.duplicate {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -417,7 +414,8 @@ label[name="investment"] {
 @keyframes accent {
   from {
     opacity: 0;
-  } to {
+  }
+  to {
     opacity: 1;
   }
 }
@@ -434,16 +432,15 @@ label[name="investment"] {
   color: var(--primary-4);
   border: 2px dashed var(--primary-2);
   border-radius: 10px;
-  transition: all .3s;
+  transition: all 0.3s;
   cursor: pointer;
 }
 .drop-zone-over {
   border: 2px solid var(--primary-2);
-
 }
 .drop-zone-prompt {
   opacity: 1;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
   text-align: justify;
 }
 .drop-zone-prompt.hidden {
@@ -470,8 +467,8 @@ label[name="investment"] {
   width: 100%;
   padding: 3px 0;
   color: white;
-  background: rgba(0, 0, 0, .75);
-  font-size: .8em;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 0.8em;
   text-align: center;
 }
 .description select {
@@ -495,37 +492,37 @@ label[name="investment"] {
 
 .upload button.shake,
 .vat-number-container button.shake {
-  animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
 @keyframes shake {
-  10%, 90% {
+  10%,
+  90% {
     transform: translate3d(-1px, 0, 0);
   }
-  
-  20%, 80% {
+
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
-
-
-
-
 
 @media (min-width: 400px) {
   .questions label {
     min-width: 300px;
   }
 }
-
 
 @media (min-width: 500px) {
   .content {
@@ -554,8 +551,6 @@ label[name="investment"] {
     font-size: 17px;
   }
 }
-
-
 
 @media (min-width: 600px) {
   .header-link {
@@ -607,8 +602,10 @@ label[name="investment"] {
   }
 }
 @media (min-width: 1000px) {
-  .demand, .supplier,
-  .comments, .documents {
+  .demand,
+  .supplier,
+  .comments,
+  .documents {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
@@ -625,11 +622,11 @@ label[name="investment"] {
   }
 }
 
-
 @media (min-width: 1400px) {
-  .demand, .supplier,
-  .comments, .documents {
+  .demand,
+  .supplier,
+  .comments,
+  .documents {
     width: 45%;
   }
 }
-
