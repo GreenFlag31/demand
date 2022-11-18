@@ -12,4 +12,4 @@
 
 🚀 Use of Object-oriented programming (OOP) paradigm to fetch for external ressources<br/>
 🚀 Use of functional paradigm to construct the DOM<br/>
-🚀 Usage of Drag and Drop Javascript API to simulate dropping files
+🚀 Use of Drag and Drop Javascript API to simulate dropping files
