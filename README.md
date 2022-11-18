@@ -11,5 +11,5 @@
 * Incorrect number or invalid VAT number for commerce will display an alert<br/>
 
 🚀 Use of Object-oriented programming (OOP) paradigm to fetch for external ressources<br/>
-🚀 Use of functional paradigm to construt the DOM<br/>
+🚀 Use of functional paradigm to construct the DOM<br/>
 🚀 Usage of Drag and Drop Javascript API to simulate dropping files
