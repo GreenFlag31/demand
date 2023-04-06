@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 :root {
-  --primary-1: #333; 
-  --primary-2: #C30045; 
+  --primary-1: #333;
+  --primary-2: #c30045;
   --primary-3: #e8e8e8;
   --primary-4: #a3a3a3;
 }
@@ -74,6 +74,8 @@ header.hidden {
 .login-form img {
   width: 280px;
   height: 150px;
+  display: block;
+  margin: auto;
 }
 .login-form input {
   width: 100%;
@@ -94,7 +96,8 @@ header.hidden {
   font-size: 15px;
   cursor: pointer;
 }
-.user, .password {
+.user,
+.password {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -105,7 +108,6 @@ header.hidden {
 }
 .login button {
   display: block;
-  padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
   border: none;
@@ -116,6 +118,8 @@ header.hidden {
   margin: auto;
 }
 .login button a {
+  padding: 10px 20px;
+  display: block;
   text-decoration: none;
   color: white;
 }
@@ -135,8 +139,7 @@ header.hidden {
   border: 1px solid var(--primary-2);
   position: relative;
   border-radius: 50px;
-  box-shadow: inset 0px 0px 1px rgb(0 0 0 / 50%),
-  0px 1px 0px rgb(255 255 255 / 20%);
+  box-shadow: inset 0px 0px 1px rgb(0 0 0 / 50%), 0px 1px 0px rgb(255 255 255 / 20%);
   font-size: 15px;
 }
 .slideThree::after {
@@ -197,7 +200,6 @@ footer {
   margin-top: 10px;
 }
 
-
 @media (min-height: 700px) {
   footer {
     position: absolute;
@@ -220,6 +222,11 @@ footer {
 @media (min-width: 635px) {
   .first-login {
     padding-top: 12px;
+  }
+}
+@media (min-width: 800px) {
+  .login-form {
+    min-width: 380px;
   }
 }
 @media (min-height: 800px) {

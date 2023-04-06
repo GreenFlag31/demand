@@ -1,3 +1,11 @@
+// Do not trigger scroll up when clicking on a links
+const allNavLinks = document.querySelectorAll(".header-link a");
+allNavLinks.forEach((a) => {
+  a.addEventListener("click", (event) => {
+    event.preventDefault();
+  });
+});
+
 // Concerns the input type Range
 const result = document.querySelector("#result");
 const bar = document.querySelector("#bar");
@@ -304,20 +312,54 @@ class DOMHandling {
 }
 
 const vatButtons = document.querySelectorAll(".vat-number-container button");
+const onlyDigits = /\d$/;
+const inputVATFields = document.querySelectorAll(".vat-number input");
+inputVATFields.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    if (!onlyDigits.test(input.value)) {
+      input.value = "";
+      input.classList.add("invalid");
+      showAsDisabled(true);
+    }
+    if (input.value.length < 9) {
+      input.classList.add("invalid");
+      showAsDisabled(true);
+    } else {
+      input.classList.add("valid");
+      showAsDisabled(false);
+    }
+  });
+});
+
+function showAsDisabled(disable) {
+  vatButtons.forEach((button) => {
+    if (disable) {
+      button.style.opacity = 0.7;
+    } else {
+      button.style.opacity = 1;
+    }
+  });
+}
+
 vatButtons.forEach((vatButton) => {
-  vatButton.addEventListener("click", async () => {
+  vatButton.addEventListener("click", () => {
     const parent = vatButton.closest(".vat-number-container");
     let inputField = parent.querySelector("input").value;
     // Sanitize spaces and . character
     inputField = inputField.replace(/\s|\./g, "");
+    const container = parent.parentNode;
 
-    if (!inputField) {
+    if (!inputField || inputField.length < 9) {
+      DOMHandling.AddMessage(
+        container,
+        "La longueur du champ doit être de minimum 9 chiffres",
+        "danger"
+      );
       addShakeAnimation(vatButton);
       parent.querySelector("input").focus();
       return;
     }
 
-    const container = parent.parentNode;
     DOMHandling.RemoveMessage(container);
     DOMHandling.ResetContainer(container);
     DisplayLoader(container);
