@@ -169,20 +169,22 @@ class DOMHandling {
     const objectAddress = object.addresses[0];
     if (this.#street === this.LimitFieldLength(objectAddress.streetFR)) return;
 
-    const ojectDenomination = object.denominations[0];
+    const objectDenomination = object.denominations[0];
     this.#VATNumber ||= object.enterpriseNumber;
-    this.#name ||= this.Capitalize(this.LimitFieldLength(ojectDenomination.denomination));
+    this.#name ||= this.Capitalize(this.LimitFieldLength(objectDenomination.denomination));
     const establishmentNumber = object.establishmentNumber
       ? `<p>N° établissement : ${object.establishmentNumber}</p>`
       : "";
 
     this.#street = this.LimitFieldLength(objectAddress.streetFR);
-    const { houseNumber, zipcode } = objectAddress;
+    let { houseNumber, zipcode } = objectAddress;
+    if (!zipcode) zipcode = "";
+    const foreignClient = objectAddress.countryFR ? objectAddress.countryFR : null;
 
     this.DOMInsertion(
       resultContainer,
       this.#name,
-      undefined,
+      foreignClient ? this.LimitFieldLength(foreignClient) : "BE",
       this.#street,
       houseNumber,
       zipcode,
@@ -214,7 +216,7 @@ class DOMHandling {
   DOMInsertion(
     resultContainer,
     name,
-    countryCode = "BE",
+    countryCode,
     street,
     houseNumber,
     zipcode,
@@ -226,7 +228,7 @@ class DOMHandling {
     resultContainer.insertAdjacentHTML(
       "beforeend",
       `<div class='result'>
-    <div class='intro'><p>Nom : ${name}</p>
+    <div class='name'><p>Nom : ${name}</p>
     <span>${countryCode}</span></div>
     <p>Adresse : ${street} ${houseNumber} ${zipcode}</p>
     <p>N° TVA : ${VATNumber}</p>
@@ -236,7 +238,15 @@ class DOMHandling {
   }
 
   static AddMessage(resultContainer, message, type) {
-    if (document.querySelector("[class*='message-']")) return;
+    const errorContainer = resultContainer.querySelector("[class*='message-']");
+    if (errorContainer?.innerText === message) {
+      return;
+    } else if (errorContainer?.innerText === message) {
+      DOMHandling.RemoveMessage(resultContainer);
+    }
+
+    resultContainer.querySelector(".message-info")?.remove();
+    resultContainer.querySelector(".result")?.remove();
 
     resultContainer.insertAdjacentHTML(
       "beforeend",
@@ -244,7 +254,7 @@ class DOMHandling {
     <p>${message}</p></div>`
     );
 
-    const parentMessage = document.querySelector(`.message-${type}`);
+    const parentMessage = resultContainer.querySelector(`.message-${type}`);
     const icon = document.createElement("i");
     if (type === "danger") {
       icon.classList.add("fa-solid", "fa-triangle-exclamation");
@@ -312,19 +322,22 @@ class DOMHandling {
 }
 
 const vatButtons = document.querySelectorAll(".vat-number-container button");
-const onlyDigits = /\d$/;
+const onlyDigits = /^\d+$/;
 const inputVATFields = document.querySelectorAll(".vat-number input");
 inputVATFields.forEach((input) => {
   input.addEventListener("input", (e) => {
     if (!onlyDigits.test(input.value)) {
-      input.value = "";
+      input.value = input.value.replace(e.data, "");
+      input.classList.remove("valid");
       input.classList.add("invalid");
       showAsDisabled(true);
     }
     if (input.value.length < 9) {
+      input.classList.remove("valid");
       input.classList.add("invalid");
       showAsDisabled(true);
     } else {
+      input.classList.remove("invalid");
       input.classList.add("valid");
       showAsDisabled(false);
     }
@@ -344,36 +357,47 @@ function showAsDisabled(disable) {
 vatButtons.forEach((vatButton) => {
   vatButton.addEventListener("click", () => {
     const parent = vatButton.closest(".vat-number-container");
-    let inputField = parent.querySelector("input").value;
+    let inputField = parent.querySelector("input");
     // Sanitize spaces and . character
-    inputField = inputField.replace(/\s|\./g, "");
+    inputField.value = inputField.value.replace(/\s|\./g, "");
     const container = parent.parentNode;
+    const code = document.querySelector(".prefix select").value;
 
-    if (!inputField || inputField.length < 9) {
+    if (!onlyDigits.test(inputField.value) & (code === "BE")) {
+      DOMHandling.AddMessage(container, "Le champ doit uniquement contenir des chiffres", "danger");
+      addShakeAnimation(vatButton);
+      inputField.classList.remove("valid");
+      inputField.classList.add("invalid");
+      parent.querySelector("input").focus();
+      return;
+    }
+    if (!inputField.value || inputField.value.length < 9) {
       DOMHandling.AddMessage(
         container,
-        "La longueur du champ doit être de minimum 9 chiffres",
+        "La longueur du champ doit être de minimum 9 caractères",
         "danger"
       );
+      inputField.classList.remove("valid");
+      inputField.classList.add("invalid");
       addShakeAnimation(vatButton);
       parent.querySelector("input").focus();
       return;
     }
 
+    inputField.classList.remove("invalid");
     DOMHandling.RemoveMessage(container);
     DOMHandling.ResetContainer(container);
     DisplayLoader(container);
 
-    const code = document.querySelector(".prefix select").value;
     if (code === "BE") {
-      APIurl = `https://demoapi.cbe2json.be/?cbe=${inputField}`;
+      APIurl = `https://demoapi.cbe2json.be/?cbe=${inputField.value}`;
       IsEU = false;
     } else {
-      APIurl = `https://controleerbtwnummer.eu/api/validate/${code}${inputField}.json`;
+      APIurl = `https://controleerbtwnummer.eu/api/validate/${code}${inputField.value}.json`;
       IsEU = true;
     }
 
-    if (alreadyInsertedVAT === inputField) {
+    if (alreadyInsertedVAT === inputField.value) {
       // if wrong supplier selected by the user, reconstruct HTML without API call
       new DOMHandling(APIGlobalresponse, container);
       HideLoader(container);
@@ -400,7 +424,7 @@ function FetchDataCompany(req, parent) {
     .fetchData()
     .then((res) => {
       if (!res.ok) {
-        throw new Error(res);
+        throw new Error(res.json());
       }
       return res.json();
     })
@@ -411,7 +435,7 @@ function FetchDataCompany(req, parent) {
       new DOMHandling(enterprise, parent);
     })
     .catch((e) => {
-      console.log(e);
+      DOMHandling.AddMessage(parent, "Aucun résultat", "danger");
     })
     .finally(() => {
       HideLoader(parent);

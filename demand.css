@@ -115,7 +115,7 @@ header i {
   padding: 5px 0;
   font-size: 0.9em;
 }
-.result .intro {
+.result .name {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -203,14 +203,14 @@ header i {
   font-size: 0.9em;
   padding: 0.625em 0;
 }
-.content .placeholder {
+.API-container .intro {
   margin: 10px 0 5px;
   font-size: 0.9em;
   color: lightgray;
 }
-.content .placeholder + label {
+/* .content .placeholder + label {
   padding-top: 0;
-}
+} */
 .content input {
   border: none;
   border-bottom: 1px solid grey;
