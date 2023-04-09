@@ -327,12 +327,17 @@ const inputVATFields = document.querySelectorAll(".vat-number input");
 inputVATFields.forEach((input) => {
   input.addEventListener("input", (e) => {
     if (!onlyDigits.test(input.value)) {
-      input.value = input.value.replace(e.data, "");
+      if (e.inputType === "insertFromPaste") {
+        input.value = input.value.replace(/\s|\.|BE/g, "");
+        return;
+      } else {
+        input.value = input.value.replace(e.data, "");
+      }
       input.classList.remove("valid");
       input.classList.add("invalid");
       showAsDisabled(true);
     }
-    if (input.value.length < 9) {
+    if (input.value.length < 10) {
       input.classList.remove("valid");
       input.classList.add("invalid");
       showAsDisabled(true);
@@ -359,34 +364,44 @@ vatButtons.forEach((vatButton) => {
     const parent = vatButton.closest(".vat-number-container");
     let inputField = parent.querySelector("input");
     // Sanitize spaces and . character
-    inputField.value = inputField.value.replace(/\s|\./g, "");
+    inputField.value = inputField.value.replace(/\s|\.|BE/g, "");
     const container = parent.parentNode;
     const code = document.querySelector(".prefix select").value;
-
-    if (!onlyDigits.test(inputField.value) & (code === "BE")) {
-      DOMHandling.AddMessage(container, "Le champ doit uniquement contenir des chiffres", "danger");
-      addShakeAnimation(vatButton);
-      inputField.classList.remove("valid");
-      inputField.classList.add("invalid");
-      parent.querySelector("input").focus();
-      return;
-    }
-    if (!inputField.value || inputField.value.length < 9) {
-      DOMHandling.AddMessage(
-        container,
-        "La longueur du champ doit être de minimum 9 caractères",
-        "danger"
-      );
-      inputField.classList.remove("valid");
-      inputField.classList.add("invalid");
-      addShakeAnimation(vatButton);
-      parent.querySelector("input").focus();
-      return;
-    }
 
     inputField.classList.remove("invalid");
     DOMHandling.RemoveMessage(container);
     DOMHandling.ResetContainer(container);
+
+    if (!onlyDigits.test(inputField.value) & (code === "BE")) {
+      APIRequirementsNotMet(
+        container,
+        inputField,
+        vatButton,
+        parent,
+        "Le champ doit uniquement contenir des chiffres"
+      );
+      return;
+    }
+    if (container.classList.contains("demand") && inputField.value.length > 10) {
+      APIRequirementsNotMet(
+        container,
+        inputField,
+        vatButton,
+        parent,
+        "La longueur du champ doit être de 10 caractères concernant les entreprises belges"
+      );
+      return;
+    } else if (!inputField.value || inputField.value.length < 10) {
+      APIRequirementsNotMet(
+        container,
+        inputField,
+        vatButton,
+        parent,
+        "La longueur du champ doit être de minimum 10 caractères"
+      );
+      return;
+    }
+
     DisplayLoader(container);
 
     if (code === "BE") {
@@ -417,6 +432,14 @@ function DisplayLoader(parent) {
 function HideLoader(parent) {
   const currentLoader = parent.querySelector(".loader.active");
   currentLoader.classList.remove("active");
+}
+
+function APIRequirementsNotMet(container, inputField, vatButton, parent, message) {
+  DOMHandling.AddMessage(container, message, "danger");
+  inputField.classList.remove("valid");
+  inputField.classList.add("invalid");
+  addShakeAnimation(vatButton);
+  parent.querySelector("input").focus();
 }
 
 function FetchDataCompany(req, parent) {
