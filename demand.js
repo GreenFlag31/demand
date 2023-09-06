@@ -1,38 +1,38 @@
 // Do not trigger scroll up when clicking on a links
-const allNavLinks = document.querySelectorAll(".header-link a");
+const allNavLinks = document.querySelectorAll('.header-link a');
 allNavLinks.forEach((a) => {
-  a.addEventListener("click", (event) => {
+  a.addEventListener('click', (event) => {
     event.preventDefault();
   });
 });
 
 // Concerns the input type Range
-const result = document.querySelector("#result");
-const bar = document.querySelector("#bar");
+const result = document.querySelector('#result');
+const bar = document.querySelector('#bar');
 
-result.value = bar.value + " %";
+result.value = bar.value + ' %';
 
-bar.addEventListener("input", () => {
-  result.textContent = bar.value + " %";
+bar.addEventListener('input', () => {
+  result.textContent = bar.value + ' %';
 });
 
 // Drag & Drop zone
-const inputFile = document.querySelector(".drop-zone-input");
-const dropZone = inputFile.closest(".drop-zone");
+const inputFile = document.querySelector('.drop-zone-input');
+const dropZone = inputFile.closest('.drop-zone');
 
-Drop("change", inputFile);
-Drop("dragover");
-Drop("dragleave", undefined, false);
-Drop("dragend", undefined, false);
-Drop("drop", undefined, false);
+Drop('change', inputFile);
+Drop('dragover');
+Drop('dragleave', undefined, false);
+Drop('dragend', undefined, false);
+Drop('drop', undefined, false);
 
 function Drop(type, eventTarget = dropZone, addClass = true) {
   eventTarget.addEventListener(type, (e) => {
     e.preventDefault();
     if (addClass) {
-      dropZone.classList.add("drop-zone-over");
+      dropZone.classList.add('drop-zone-over');
     } else {
-      dropZone.classList.remove("drop-zone-over");
+      dropZone.classList.remove('drop-zone-over');
     }
 
     const currentFile = e.dataTransfer?.files || e.currentTarget.files;
@@ -44,71 +44,78 @@ function Drop(type, eventTarget = dropZone, addClass = true) {
 }
 
 function updateThumbnail(file) {
-  let thumbnailElement = dropZone.querySelector(".drop-zone-thumb");
-  dropZone.querySelector(".drop-zone-prompt").classList.add("hidden");
+  let thumbnailElement = dropZone.querySelector('.drop-zone-thumb');
+  dropZone.querySelector('.drop-zone-prompt').classList.add('hidden');
 
   if (!thumbnailElement) {
-    thumbnailElement = document.createElement("div");
-    thumbnailElement.classList.add("drop-zone-thumb");
+    thumbnailElement = document.createElement('div');
+    thumbnailElement.classList.add('drop-zone-thumb');
     dropZone.appendChild(thumbnailElement);
   }
 
-  thumbnailElement.dataset.label = file.name.toLowerCase();
+  const fileName = file.name.toLowerCase();
+  thumbnailElement.dataset.label = fileName;
+  thumbnailElement.title = fileName;
 
-  if (file.type.includes("image")) {
+  if (file.type.includes('image')) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
     reader.onload = () => {
-      thumbnailElement.style.background = `url('${reader.result}') center / contain rgb(255, 255, 255) no-repeat`;
+      thumbnailElement.style.background = `url('${reader.result}') center / cover rgb(255, 255, 255) no-repeat`;
     };
   } else {
-    thumbnailElement.style.backgroundImage = "";
+    thumbnailElement.style.backgroundImage = '';
   }
 }
 
-const documents = document.querySelector(".documents");
-const description = document.querySelector(".content.description input");
-const uploadBtn = document.querySelector(".upload button");
-uploadBtn.addEventListener("click", () => {
+const documents = document.querySelector('.documents');
+const description = document.querySelector('.content.description input');
+const uploadBtn = document.querySelector('.upload button');
+uploadBtn.addEventListener('click', () => {
   UploadedDocument();
 });
 
 function UploadedDocument() {
-  const zoneThumb = document.querySelector(".drop-zone-thumb");
+  const zoneThumb = document.querySelector('.drop-zone-thumb');
+  const dropZonePrompt = dropZone.querySelector('.drop-zone-prompt');
 
   if (!description || !zoneThumb) {
     addShakeAnimation(uploadBtn);
     return;
   }
 
-  const uploaded = document.createElement("div");
-  const icon = document.createElement("i");
-  icon.classList.add("fa-solid", "fa-check");
-  uploaded.classList.add("uploaded-container");
-  const doc = document.createElement("p");
+  const uploaded = document.createElement('div');
+  const icon = document.createElement('i');
+  icon.classList.add('fa-solid', 'fa-check');
+  uploaded.classList.add('uploaded-container');
+  const doc = document.createElement('p');
   doc.textContent = zoneThumb.dataset.label.toLowerCase();
   uploaded.appendChild(doc);
   uploaded.insertBefore(icon, doc);
   documents.appendChild(uploaded);
 
   zoneThumb?.remove();
-  description.value = "";
-  dropZone.querySelector(".drop-zone-prompt").classList.remove("hidden");
+  description.value = '';
+
+  const keyframes = [{ opacity: 0 }, { opacity: 1 }];
+
+  dropZonePrompt.classList.remove('hidden');
+  dropZonePrompt.animate(keyframes, { duration: 300 });
 }
 
 function addShakeAnimation(element) {
-  element.classList.add("shake");
+  element.classList.add('shake');
   setTimeout(() => {
-    element.classList.remove("shake");
+    element.classList.remove('shake');
   }, 500);
 }
 
 // API fetching and handling
-let APIurl = "";
+let APIurl = '';
 let IsEU = false;
-let APIGlobalresponse = "";
-let alreadyInsertedVAT = "";
+let APIGlobalresponse = '';
+let alreadyInsertedVAT = '';
 
 class AjaxRequest {
   constructor() {
@@ -145,12 +152,12 @@ class DOMHandling {
     let delay = 0;
     const keyframes = [{ opacity: 0 }, { opacity: 1 }];
 
-    const results = this.parentContainer.querySelectorAll(".result");
+    const results = this.parentContainer.querySelectorAll('.result');
     results.forEach((result) => {
       result.animate(keyframes, {
         duration: 600,
-        easing: "ease-out",
-        fill: "forwards",
+        easing: 'ease-out',
+        fill: 'forwards',
         delay,
       });
       delay += 300;
@@ -160,9 +167,9 @@ class DOMHandling {
   }
 
   BESupplier(object) {
-    const resultContainer = this.parentContainer.querySelector(".result-container");
-    if (object.statusDescription && object.statusDescription?.FR !== "Actif") {
-      DOMHandling.AddMessage(resultContainer, "Client non valide", "danger");
+    const resultContainer = this.parentContainer.querySelector('.result-container');
+    if (object.statusDescription && object.statusDescription?.FR !== 'Actif') {
+      DOMHandling.AddMessage(resultContainer, 'Client non valide', 'danger');
       return;
     }
 
@@ -174,17 +181,17 @@ class DOMHandling {
     this.#name ||= this.Capitalize(this.LimitFieldLength(objectDenomination.denomination));
     const establishmentNumber = object.establishmentNumber
       ? `<p>N° établissement : ${object.establishmentNumber}</p>`
-      : "";
+      : '';
 
     this.#street = this.LimitFieldLength(objectAddress.streetFR);
     let { houseNumber, zipcode } = objectAddress;
-    if (!zipcode) zipcode = "";
+    if (!zipcode) zipcode = '';
     const foreignClient = objectAddress.countryFR ? objectAddress.countryFR : null;
 
     this.DOMInsertion(
       resultContainer,
       this.#name,
-      foreignClient ? this.LimitFieldLength(foreignClient) : "BE",
+      foreignClient ? this.LimitFieldLength(foreignClient) : 'BE',
       this.#street,
       houseNumber,
       zipcode,
@@ -195,12 +202,12 @@ class DOMHandling {
 
   EUSupplier(object) {
     // NL862399373B01
-    const resultContainer = document.querySelector(".supplier .result-container");
+    const resultContainer = document.querySelector('.supplier .result-container');
     if (!object.valid) {
       DOMHandling.AddMessage(
         resultContainer,
-        "TVA non valide pour les transactions transfrontières dans l’UE",
-        "danger"
+        'TVA non valide pour les transactions transfrontières dans l’UE',
+        'danger'
       );
       return;
     }
@@ -221,12 +228,12 @@ class DOMHandling {
     houseNumber,
     zipcode,
     VATNumber,
-    establishmentNumber = ""
+    establishmentNumber = ''
   ) {
-    DOMHandling.AddMessage(resultContainer, "Sélectionnez pour confirmer", "info");
+    DOMHandling.AddMessage(resultContainer, 'Sélectionnez pour confirmer', 'info');
 
     resultContainer.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `<div class='result'>
     <div class='name'><p>Nom : ${name}</p>
     <span>${countryCode}</span></div>
@@ -245,26 +252,26 @@ class DOMHandling {
       DOMHandling.RemoveMessage(resultContainer);
     }
 
-    resultContainer.querySelector(".message-info")?.remove();
-    resultContainer.querySelector(".result")?.remove();
+    resultContainer.querySelector('.message-info')?.remove();
+    resultContainer.querySelector('.result')?.remove();
 
     resultContainer.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `<div class='message-${type}'>
     <p>${message}</p></div>`
     );
 
     const parentMessage = resultContainer.querySelector(`.message-${type}`);
-    const icon = document.createElement("i");
-    if (type === "danger") {
-      icon.classList.add("fa-solid", "fa-triangle-exclamation");
+    const icon = document.createElement('i');
+    if (type === 'danger') {
+      icon.classList.add('fa-solid', 'fa-triangle-exclamation');
     } else {
-      icon.classList.add("fa-solid", "fa-circle-info");
+      icon.classList.add('fa-solid', 'fa-circle-info');
     }
-    parentMessage.insertBefore(icon, parentMessage.querySelector("p"));
+    parentMessage.insertBefore(icon, parentMessage.querySelector('p'));
   }
 
-  static RemoveMessage(container = "") {
+  static RemoveMessage(container = '') {
     this.parentContainer?.querySelector("[class*='message-']")?.remove() ||
       container.querySelector("[class*='message-']")?.remove();
   }
@@ -276,31 +283,31 @@ class DOMHandling {
   }
 
   LimitFieldLength(field, limit = 20) {
-    if (field.indexOf("(") !== -1) {
-      field = field.substring(0, field.indexOf("("));
+    if (field.indexOf('(') !== -1) {
+      field = field.substring(0, field.indexOf('('));
     }
 
     if (field.length > limit) {
-      let splittedField = field.split(" ");
-      field = splittedField[0] + " ";
+      let splittedField = field.split(' ');
+      field = splittedField[0] + ' ';
       let i = 1;
       while (field.length + splittedField[i]?.length < limit && splittedField[i]) {
-        field += splittedField[i] + " ";
+        field += splittedField[i] + ' ';
         i++;
       }
 
       if (!splittedField[i]) return field;
-      field += splittedField[i].trim()[0] + ".";
+      field += splittedField[i].trim()[0] + '.';
     }
     return field;
   }
 
   Capitalize(field) {
-    const word = field.split(" ");
-    let capitalized = "";
+    const word = field.split(' ');
+    let capitalized = '';
     let i = 0;
     while (word[i]) {
-      capitalized += word[i][0].toUpperCase() + word[i].substring(1).toLowerCase() + " ";
+      capitalized += word[i][0].toUpperCase() + word[i].substring(1).toLowerCase() + ' ';
       i++;
     }
 
@@ -308,42 +315,42 @@ class DOMHandling {
   }
 
   addSelectable(results, result) {
-    result.addEventListener("click", () => {
-      result.classList.add("selected");
+    result.addEventListener('click', () => {
+      result.classList.add('selected');
       DOMHandling.RemoveMessage(this.parentContainer);
 
       results.forEach((r) => {
-        if (!r.classList.contains("selected")) {
-          r.classList.add("hidden");
+        if (!r.classList.contains('selected')) {
+          r.classList.add('hidden');
         }
       });
     });
   }
 }
 
-const vatButtons = document.querySelectorAll(".vat-number-container button");
+const vatButtons = document.querySelectorAll('.vat-number-container button');
 const onlyDigits = /^\d+$/;
-const inputVATFields = document.querySelectorAll(".vat-number input");
+const inputVATFields = document.querySelectorAll('.vat-number input');
 inputVATFields.forEach((input) => {
-  input.addEventListener("input", (e) => {
+  input.addEventListener('input', (e) => {
     if (!onlyDigits.test(input.value)) {
-      if (e.inputType === "insertFromPaste") {
-        input.value = input.value.replace(/\s|\.|BE/g, "");
+      if (e.inputType === 'insertFromPaste') {
+        input.value = input.value.replace(/\s|\.|BE/g, '');
         return;
       } else {
-        input.value = input.value.replace(e.data, "");
+        input.value = input.value.replace(e.data, '');
       }
-      input.classList.remove("valid");
-      input.classList.add("invalid");
+      input.classList.remove('valid');
+      input.classList.add('invalid');
       showAsDisabled(true);
     }
     if (input.value.length < 10) {
-      input.classList.remove("valid");
-      input.classList.add("invalid");
+      input.classList.remove('valid');
+      input.classList.add('invalid');
       showAsDisabled(true);
     } else {
-      input.classList.remove("invalid");
-      input.classList.add("valid");
+      input.classList.remove('invalid');
+      input.classList.add('valid');
       showAsDisabled(false);
     }
   });
@@ -360,35 +367,35 @@ function showAsDisabled(disable) {
 }
 
 vatButtons.forEach((vatButton) => {
-  vatButton.addEventListener("click", () => {
-    const parent = vatButton.closest(".vat-number-container");
-    let inputField = parent.querySelector("input");
+  vatButton.addEventListener('click', () => {
+    const parent = vatButton.closest('.vat-number-container');
+    let inputField = parent.querySelector('input');
     // Sanitize spaces and . character
-    inputField.value = inputField.value.replace(/\s|\.|BE/g, "");
+    inputField.value = inputField.value.replace(/\s|\.|BE/g, '');
     const container = parent.parentNode;
-    const code = document.querySelector(".prefix select").value;
+    const code = document.querySelector('.prefix select').value;
 
-    inputField.classList.remove("invalid");
+    inputField.classList.remove('invalid');
     DOMHandling.RemoveMessage(container);
     DOMHandling.ResetContainer(container);
 
-    if (!onlyDigits.test(inputField.value) & (code === "BE")) {
+    if (!onlyDigits.test(inputField.value) & (code === 'BE')) {
       APIRequirementsNotMet(
         container,
         inputField,
         vatButton,
         parent,
-        "Le champ doit uniquement contenir des chiffres"
+        'Le champ doit uniquement contenir des chiffres'
       );
       return;
     }
-    if (container.classList.contains("demand") && inputField.value.length > 10) {
+    if (container.classList.contains('demand') && inputField.value.length > 10) {
       APIRequirementsNotMet(
         container,
         inputField,
         vatButton,
         parent,
-        "La longueur du champ doit être de 10 caractères concernant les entreprises belges"
+        'La longueur du champ doit être de 10 caractères concernant les entreprises belges'
       );
       return;
     } else if (!inputField.value || inputField.value.length < 10) {
@@ -397,14 +404,14 @@ vatButtons.forEach((vatButton) => {
         inputField,
         vatButton,
         parent,
-        "La longueur du champ doit être de minimum 10 caractères"
+        'La longueur du champ doit être de minimum 10 caractères'
       );
       return;
     }
 
     DisplayLoader(container);
 
-    if (code === "BE") {
+    if (code === 'BE') {
       APIurl = `https://demoapi.cbe2json.be/?cbe=${inputField.value}`;
       IsEU = false;
     } else {
@@ -425,21 +432,21 @@ vatButtons.forEach((vatButton) => {
 });
 
 function DisplayLoader(parent) {
-  const currentLoader = parent.querySelector(".loader");
-  currentLoader.classList.add("active");
+  const currentLoader = parent.querySelector('.loader');
+  currentLoader.classList.add('active');
 }
 
 function HideLoader(parent) {
-  const currentLoader = parent.querySelector(".loader.active");
-  currentLoader.classList.remove("active");
+  const currentLoader = parent.querySelector('.loader.active');
+  currentLoader.classList.remove('active');
 }
 
 function APIRequirementsNotMet(container, inputField, vatButton, parent, message) {
-  DOMHandling.AddMessage(container, message, "danger");
-  inputField.classList.remove("valid");
-  inputField.classList.add("invalid");
+  DOMHandling.AddMessage(container, message, 'danger');
+  inputField.classList.remove('valid');
+  inputField.classList.add('invalid');
   addShakeAnimation(vatButton);
-  parent.querySelector("input").focus();
+  parent.querySelector('input').focus();
 }
 
 function FetchDataCompany(req, parent) {
@@ -453,16 +460,16 @@ function FetchDataCompany(req, parent) {
     })
     .then((enterprise) => {
       alreadyInsertedVAT = enterprise.enterpriseNumber || enterprise.vatNumber;
-      alreadyInsertedVAT = alreadyInsertedVAT.replace(/\./g, "");
+      alreadyInsertedVAT = alreadyInsertedVAT.replace(/\./g, '');
       APIGlobalresponse = enterprise;
       new DOMHandling(enterprise, parent);
     })
     .catch((e) => {
-      DOMHandling.AddMessage(parent, "Aucun résultat", "danger");
+      DOMHandling.AddMessage(parent, 'Aucun résultat', 'danger');
     })
     .finally(() => {
       HideLoader(parent);
     });
 }
 
-document.querySelector(".vat-number input").focus();
+document.querySelector('.vat-number input').focus();

@@ -179,7 +179,7 @@ header i {
   align-items: flex-end;
   gap: 10px;
 }
-.prefix select[name="code"] {
+.prefix select[name='code'] {
   margin: 0;
   height: 2em;
   outline: none;
@@ -208,9 +208,6 @@ header i {
   font-size: 0.9em;
   color: lightgray;
 }
-/* .content .placeholder + label {
-  padding-top: 0;
-} */
 .content input {
   border: none;
   border-bottom: 1px solid grey;
@@ -240,14 +237,14 @@ header i {
   justify-content: space-between;
   padding-top: 10px;
 }
-label[name="investment"] {
+label[name='investment'] {
   margin-top: 0;
 }
 .secondhand {
   display: flex;
   align-items: center;
 }
-.secondhand label[name="secondhand"] {
+.secondhand label[name='secondhand'] {
   padding: 0;
   margin: 0 8px 0;
 }
@@ -264,11 +261,11 @@ label[name="investment"] {
   position: relative;
 }
 
-.toggler-wrapper input[type="checkbox"] {
+.toggler-wrapper input[type='checkbox'] {
   display: none;
 }
 
-.toggler-wrapper input[type="checkbox"]:checked + .toggler-slider {
+.toggler-wrapper input[type='checkbox']:checked + .toggler-slider {
   background-color: var(--primary-2);
 }
 
@@ -290,7 +287,7 @@ label[name="investment"] {
   transition: all 300ms ease;
 }
 
-.toggler-wrapper.style-1 input[type="checkbox"]:checked + .toggler-slider .toggler-knob {
+.toggler-wrapper.style-1 input[type='checkbox']:checked + .toggler-slider .toggler-knob {
   left: calc(100% - 19px - 3px);
 }
 
@@ -329,7 +326,7 @@ label[name="investment"] {
   color: #000;
 }
 #result::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -360,7 +357,7 @@ label[name="investment"] {
   cursor: pointer;
 }
 .create-offer::after {
-  content: "";
+  content: '';
   display: block;
   width: 100%;
   height: 100%;
@@ -410,7 +407,7 @@ label[name="investment"] {
   line-height: 1.2;
   margin: 0;
 }
-.questions input[type="checkbox"] {
+.questions input[type='checkbox'] {
   width: 1.2em;
   height: 1.2em;
   cursor: pointer;
@@ -454,14 +451,10 @@ label[name="investment"] {
   border: 2px solid var(--primary-2);
 }
 .drop-zone-prompt {
-  opacity: 1;
-  transition: opacity 0.5s;
   text-align: justify;
 }
 .drop-zone-prompt.hidden {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  display: none;
 }
 .drop-zone-input {
   display: none;
@@ -480,11 +473,14 @@ label[name="investment"] {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 3px 0;
+  padding: 3px;
   color: white;
   background: rgba(0, 0, 0, 0.75);
   font-size: 0.8em;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .description select {
   margin: 15px 0;
